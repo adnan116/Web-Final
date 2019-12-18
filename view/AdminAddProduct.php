@@ -25,6 +25,8 @@
 		    <div class="dropdown-content">
 		    	<a href="AdminAddProduct.php">Add Product</a>
 		    	<a href="AdminProductDetails.php">Product Details</a>
+		    	<a href="AdminAddCategory.php">Add Category</a>
+		    	<a href="AdminAddSubCategory.php">Add Sub-Category</a>
 		  	</div>
 		</div>
 
@@ -76,17 +78,19 @@
 		$data = getProductLastId();
 	 ?>
 	<form method="POST" action="../php/AdminAddProductCheck.php" enctype="multipart/form-data">
-		<div style="color: red;font-weight: bold;">
-			<?php 
-				if (isset($_GET['msg'])) {
-					echo $_GET['msg'].'<br><br>';
-				}
-			?>
-		</div>
 		<table align="center" bgcolor="CornflowerBlue" cellspacing="30px">
 			<tr>
 				<td colspan="4">
-					<center><h1><font color="DarkBlue" face="Cursive"><u>Add Product</u></font></h1></center>
+					<center>
+						<h1><font color="DarkBlue" face="Cursive"><u>Add Product</u></font></h1>
+						<div style="color: red;font-weight: bold;">
+							<?php 
+								if (isset($_GET['msg'])) {
+									echo $_GET['msg'].'<br><br>';
+								}
+							?>
+						</div>
+					</center>
 				</td>
 			</tr>
 			<tr>

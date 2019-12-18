@@ -1,5 +1,5 @@
 <?php 
-	
+	require_once('../db/AdminProductFunction.php');
 	session_start();
 
 	if (isset($_SESSION['username'])) {	
@@ -9,9 +9,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Enable/Disable Promo Code</title>
+	<title>Add Sub-Category</title>
 	<link rel="stylesheet" type="text/css" href="../css/Navigate.css">
 	<link rel="stylesheet" type="text/css" href="../css/Design.css">
+	<script type="text/javascript" src="../js/AdminScript.js"></script>
 </head>
 <body style="background-color: CornflowerBlue;">
 	<div class="nav">
@@ -60,62 +61,63 @@
 		  	</div>
 		</div>
 	</div>
-	<form method="POST" action="">
+	<?php 
+		$category = "";
+		$result = getAllCategory();
+		while ($rows = mysqli_fetch_assoc($result)) {
+			$category .= '<option value="'.$rows["cat_name"].'">'.$rows["cat_name"].'</option>';
+		}
+
+		$data = getSubCategoryLastId();
+
+	 ?>
+	<form method="POST" action="../php/AdminAddSubCategoryCheck.php">
 		<table align="center" bgcolor="CornflowerBlue" cellspacing="30px">
 			<tr>
-				<td colspan="4">
-					<center><h1><font color="DarkBlue" face="Cursive"><u>Enable/Disable Promo Code</u></font></h1></center>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="4" align="right">
-					<input type="text" name="search" placeholder="Search Promo Code">
-					<button type="button" class="btn">Search</button>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					Promo Code ID:
-				</td>
-				<td>
-					<input type="text" name="prid" disabled>
-				</td>
-				<td>
-					Promo Code:
-				</td>
-				<td>
-					<input type="text" name="prname" disabled>
+				<td colspan="2">
+					<center>
+						<h1><font color="DarkBlue" face="Cursive"><u>Add Sub-Category</u></font></h1>
+						<div style="color: red;font-weight: bold;">
+							<?php 
+								if (isset($_GET['msg'])) {
+									echo $_GET['msg'].'<br><br>';
+								}
+							?>
+						</div>
+					</center>
 				</td>
 			</tr>
 			<tr>
 				<td>
-					Amount of Discount:
+					Sub-Category ID:
 				</td>
 				<td>
-					<input type="text" name="dis" disabled>
-				</td>
-				<td>
-					Validity:
-				</td>
-				<td>
-					<input type="date" name="prval">
+					<input type="text" name="catid" size="27" value="<?php echo $data['subcat_id']+1; ?>" disabled>
 				</td>
 			</tr>
 			<tr>
 				<td>
-					Status:
+					Sub-Category Name:
 				</td>
 				<td>
-					<select name="prstat">
-						<option value="">Select Status</option>
-						<option value="Enable">Enable</option>
-						<option value="Disable">Disable</option>
+					<input type="text" name="subcatname" placeholder="Enter Category Name" size="27" id="subcat" onkeyup="validateSubCategoryName()">
+					<div id="ersubcatname" style="color: red;font-weight: bold;"></div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Category:
+				</td>
+				<td>
+					<select name="cat">
+						<option value="">Select Category</option>
+						<?php echo $category; ?>
 					</select>
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<input type="submit" name="submit" value="Update Promo">
+					<input type="submit" name="submit" value="Add Sub-Category">
 				</td>
 				<td >
 					<input type="reset" name="reset" value="Reset">
@@ -130,4 +132,5 @@
 	}else{
 		header('location: ../adminLogin.php');
 	}
+
 ?>

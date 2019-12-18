@@ -256,3 +256,29 @@ function DeleteUser(deleteid){
     	}};
 	}
 }
+
+function validateCategoryName(){
+	var category = document.getElementById('cate').value;
+	var errcat = document.getElementById('ercatname');
+	
+		if(category == "")
+		{
+			errcat.innerHTML = "Category name can not be empty";
+		}
+		else{
+			errcat.innerHTML = "";
+		}
+}
+
+function validateSubCategoryName(){
+	var subcategory = document.getElementById('subcat').value;
+	var errsubcat = document.getElementById('ersubcatname');
+	
+		if(subcategory == "")
+		{
+			errsubcat.innerHTML = "Sub-Category name can not be empty";
+		}
+		else{
+			errsubcat.innerHTML = "";
+		}
+}
