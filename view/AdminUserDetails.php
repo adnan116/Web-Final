@@ -2,7 +2,7 @@
 	require_once('../db/AdminUserFunction.php');
 	session_start();
 
-	if (isset($_SESSION['username'])) {	
+	if (isset($_SESSION['username'])  && isset($_COOKIE['username'])) {	
 		
 ?>
 
@@ -35,6 +35,7 @@
 		    <div class="dropdown-content">
 		    	<a href="AdminAddUser.php">Add User</a>
 		    	<a href="AdminUserDetails.php">User Details</a>
+		    	<a href="AdminCustomerDetails.php">Customer Details</a>
 		  	</div>
 		</div>
 
@@ -72,7 +73,7 @@
 			?>
 		</div>
 		
-		<input type="text" name="searchkey" placeholder="Search User By Name or Type or Email" size="50" id="skey" onkeyup="getProductBySearch()">
+		<input type="text" name="searchkey" placeholder="Search User By Name or Type or Email" size="50" id="skey" onkeyup="getUserBySearch()">
 	</center>
 	
 	<div id="userdata">

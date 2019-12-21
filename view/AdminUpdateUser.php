@@ -2,7 +2,7 @@
 	require_once('../db/AdminUserFunction.php');
 	session_start();
 
-	if (isset($_SESSION['username'])) {	
+	if (isset($_SESSION['username'])  && isset($_COOKIE['username'])) {	
 		if (isset($_GET['id'])) {
 			$data =singleUser($_GET['id']);
 			$rows = mysqli_fetch_assoc($data);
@@ -43,6 +43,7 @@
 		    <div class="dropdown-content">
 		    	<a href="AdminAddUser.php">Add User</a>
 		    	<a href="AdminUserDetails.php">User Details</a>
+		    	<a href="AdminCustomerDetails.php">Customer Details</a>
 		  	</div>
 		</div>
 

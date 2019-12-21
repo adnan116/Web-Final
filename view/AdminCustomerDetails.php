@@ -1,15 +1,16 @@
 <?php 
-	require_once('../db/AdminProductFunction.php');
+	require_once('../db/AdminUserFunction.php');
 	session_start();
 
-	if (isset($_SESSION['username']) && isset($_COOKIE['username'])) {	
+	if (isset($_SESSION['username'])  && isset($_COOKIE['username'])) {	
 		
 ?>
+
 
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Product Details</title>
+	<title>Customer Details</title>
 	<link rel="stylesheet" type="text/css" href="../css/Navigate.css">
 	<link rel="stylesheet" type="text/css" href="../css/Design.css">
 	<link rel="stylesheet" type="text/css" href="../css/Table.css">
@@ -63,71 +64,40 @@
 		  	</div>
 		</div>
 	</div>
-	
 	<center>
-		<h1><font color="DarkBlue" face="Cursive"><u>Product Details</u></font></h1><br>
-		<div style="color: red;font-weight: bold;">
-			<?php 
-				if (isset($_GET['msg'])) {
-					echo $_GET['msg'].'<br><br>';
-				}
-			?>
-		</div>
-		
-		<input type="text" name="searchkey" placeholder="Search Product By Name" size="50" id="key" onkeyup="getProductBySearch()">
+		<h1><font color="DarkBlue" face="Cursive"><u>Customer Details</u></font></h1><br><br>
+		<input type="text" name="searchkey" placeholder="Search Customer By ID or Name or Email or Phone" size="50" id="ckey" onkeyup="getCustomerBySearch()">
 	</center>
-	
-	<div id="select">
+
+	<div id="cusdata">
 		<table width="100%" cellspacing="20px" style="margin-top: 2.5%">
 			<tr>
-				<th>Product ID</th>
-				<th>Product Name</th>
-				<th>Category</th>
-				<th>Sub-Category</th>
-				<th>Quantity</th>
-				<th>Incoming Date</th>
-				<th>Buying Price</th>
-				<th>Selling Price</th>
-				<th>Description</th>
-				<th>Image</th>
-				<th>Activity</th>
-				<th colspan="2">Operation</th>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Email</th>
+				<th>Date of Birth</th>
+				<th>Gender</th>
+				<th>Phone</th>
+				<th>Shipping Address</th>
+				<th>Billing Address</th>
 			</tr>
 
 			<?php 
 
-				$result = getAllProduct();
+				$result = getCustomerDetails();
 				while ($rows = mysqli_fetch_assoc($result)) {
-
-				$des = explode('.', $rows['description']);
-				$fdes = "";
-				$i = 0;
-				while ($des[$i] != "") {
-					$fdes .= $des[$i]."<br>";
-					$i++;
-				}
 
 			?>
 
 			<tr align="center">
-				<td><?php echo $rows['pid']; ?></td>
-				<td><?php echo $rows['name']; ?></td>
-				<td><?php echo $rows['cat_name']; ?></td>
-				<td><?php echo $rows['subcat_name']; ?></td>
-				<td><?php echo $rows['quantity']; ?></td>
-				<td><?php echo $rows['incoming_date']; ?></td>
-				<td><?php echo $rows['buying_price']; ?></td>
-				<td><?php echo $rows['selling_price']; ?></td>
-				<td><?php echo $fdes; ?></td>
-				<td><img src="../upload/<?php echo $rows['image'];?>" width="150px" height="150px"></td>
-				<td><?php if ($rows['activity']==1) {
-							echo "Available";
-						  }else{
-							echo "Sold-Out";
-						} ?>
-				</td>
-				<td><a href="AdminUpdateProduct.php?pid=<?php echo $rows['pid']; ?>" class="a1">Update</a></td>
-				<td><button class="btn" onclick="DeleteProduct(<?php echo $rows['pid']; ?>)">Delete</button></td>
+				<td><?php echo $rows['cid']; ?></td>
+				<td><?php echo $rows['fullname']; ?></td>
+				<td><?php echo $rows['email']; ?></td>
+				<td><?php echo $rows['dob']; ?></td>
+				<td><?php echo $rows['gender']; ?></td>
+				<td><?php echo $rows['phone']; ?></td>
+				<td><?php echo $rows['shipping_address']; ?></td>
+				<td><?php echo $rows['billing_address']; ?></td>
 			</tr>
 			<?php } ?>
 			
